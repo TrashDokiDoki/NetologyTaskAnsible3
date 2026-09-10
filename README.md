@@ -55,3 +55,72 @@
 6. Так же я проверил, что `lighthouse` работает
 
 <img width="1851" height="1010" alt="image" src="https://github.com/user-attachments/assets/5c828fa2-6085-4328-b4e0-6c3494bb99bc" />
+
+---
+
+# Что делает playbook
+
+**ClickHouse**
+ 
+ * скачивает и устанавливает ClickHouse;
+ * запускает сервис;
+ * создает базу logs.
+
+**Vector**
+
+ * скачивает и распаковывает Vector;
+ * создает конфигурацию через Jinja2;
+ * создает systemd service;
+ * запускает Vector.
+
+**LightHouse**
+
+ * устанавливает Nginx;
+ * скачивает LightHouse;
+ * настраивает Nginx через Jinja2;
+ * запускает веб-сервер.
+
+**Переменные**
+
+Переменные для сервисов находятся в каталогах:
+```
+group_vars/clickhouse/
+group_vars/vector/
+group_vars/lighthouse/
+```
+Там задаются версии программ, пути установки и другие параметры.
+
+**Проверка**
+
+Проверка playbook:
+
+`ansible-lint site.yml`
+
+Проверка без внесения изменений:
+
+`ansible-playbook -i inventory/prod.yml site.yml --check`
+
+Запуск с отображением изменений:
+
+`ansible-playbook -i inventory/prod.yml site.yml --diff`
+
+При повторном запуске:
+
+```
+changed=0
+failed=0
+```
+
+Это подтверждает идемпотентность playbook.
+
+**Теги**
+
+Отдельные Ansible tags в playbook не использовались.
+
+Для запуска отдельных групп можно использовать:
+
+```
+ansible-playbook -i inventory/prod.yml site.yml --limit clickhouse
+ansible-playbook -i inventory/prod.yml site.yml --limit vector
+ansible-playbook -i inventory/prod.yml site.yml --limit lighthouse
+```
