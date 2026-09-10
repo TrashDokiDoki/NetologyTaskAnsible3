@@ -30,4 +30,28 @@
 
 # Решение
 
--
+1. Для начала создал ещё одну ВМ
+
+<img width="2446" height="378" alt="image" src="https://github.com/user-attachments/assets/ac3f211c-9f15-40c6-b49b-64f9f12c9322" />
+
+2. Далее я дописал playbook(playbook отдельно приложил)
+
+3. Далее был подготовлен inventory-файл
+
+<img width="490" height="353" alt="image" src="https://github.com/user-attachments/assets/b425e78f-cfbd-4a32-aebc-6958b4fc3ef3" />
+
+4. Следующим шагом был запущен `ansible-lint site.yml`, который показал что ошибок нет
+
+5. После я запустил playbook с флагом `--diff` дважды. Первый раз проверка работоспособности playbook, а второй для проверки на идемпотентность
+
+  * Вывод с первой попытки
+
+<img width="1028" height="388" alt="image" src="https://github.com/user-attachments/assets/cad7a5b5-81a7-41e2-bc53-e6d561dbff6b" />
+
+  * Вывод со второй попытки
+
+<img width="927" height="389" alt="image" src="https://github.com/user-attachments/assets/a1f22af9-9cec-4d9f-b4ad-92a7920de344" />
+
+6. Так же я проверил, что `lighthouse` работает
+
+<img width="1851" height="1010" alt="image" src="https://github.com/user-attachments/assets/5c828fa2-6085-4328-b4e0-6c3494bb99bc" />
